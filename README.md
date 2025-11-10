@@ -1,6 +1,4 @@
-# lilDistriLLM
-
-Distributed LLM Inference and Data Processing Platform
+# Distributed LLM Inference and Data Processing Platform
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -8,58 +6,13 @@ Distributed LLM Inference and Data Processing Platform
 
 ---
 
-# Project Overview
+# overview
 This project aims to utilize Hadoop and Spark for large-scale data processing, write high-performance middleware and apis with RustGo, conduct container orchestration and deployment with Kubernetes, and integrate LLM inference optimization techniques (such as model quantization). Build LLM-based applications using dynamic batch processing and LangChain, etc
 
----
-
-# Tech Stack
-
 
 ---
 
-# Architecture
-```
-The user requests => the K8s Ingress => Rust gateway => Spark to process => the LLM inference cluster => result return
-```
-
----
-
-# Quick Start
-
-```
-# git clone
-git clone https://github.com/hortus-neu/DistriLLM.git
-cd DistriLLM
-
-# run dev
-make dev-setup
-
-# deploy basical set-ups
-make deploy-local
-```
-
----
-
-# System Overview
-
-This project builds a distributed LLM inference and data processing platform
-combining Spark, Kubernetes, Rust, and LangChain.
-
-- **Docker Compose** for local orchestration (Spark, Redis, MinIO)
-- **Kubernetes** for cluster deployment (API Gateway, Inference Service)
-- **Ports**: Spark UI (8080), Redis (6379), MinIO (9000/9001), API Gateway (8080→80)
-- **Features**: scalable inference, real-time data streaming, containerized services
-
-
-- [中文版本](docs/architecture/system-design.zh.md)
-- [English Version](docs/architecture/system-design.en.md)
-
-
-
----
-
-# Structure
+# structure
 
 ```
 .
@@ -81,3 +34,30 @@ combining Spark, Kubernetes, Rust, and LangChain.
     ├── langchain-app # LangChain logic for agent reasoning and memory
     └── spark-jobs # Distributed data processing jobs for Spark
 ```
+
+---
+
+# how to run
+
+```
+# git clone
+git clone https://github.com/hortus-neu/DistriLLM.git
+cd DistriLLM
+
+# run dev
+make dev-setup
+
+# deploy basical set-ups
+make deploy-local
+```
+
+---
+
+# documents
+
+
+- [中文版本](docs/architecture/system-design.zh.md)
+- [English Version](docs/architecture/system-design.en.md)
+
+
+
