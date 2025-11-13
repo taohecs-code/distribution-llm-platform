@@ -18,6 +18,29 @@ struct AppState {
     request_count: Arc<std::sync::atomic::AtomicU64>,
 }
 
+#[derive(Deserialize)]
+struct InferenceRequest {
+    prompt: String,
+    max_tokens: Option<u32>,
+    temperature: Option<f32>
+}
+
+#[derive(Serialize)]
+struct InferenceResponse {
+    generated_text: String,
+    latency_ms: u64,
+    tokens_generated: u32,
+    model_version: String
+}
+
+#[derive(Serialize)]
+struct HealthResponse {
+    status: String,
+    version: String,
+    total_request: u64,
+    active_connections: usize
+}
+
 #[tokio::main]
 async fn main(){
     
