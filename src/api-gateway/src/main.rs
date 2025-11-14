@@ -37,8 +37,19 @@ struct InferenceResponse {
 struct HealthResponse {
     status: String,
     version: String,
-    total_request: u64,
-    active_connections: usize
+    total_requests: u64,
+    active_connections: usize,
+}
+
+
+// health check point
+async fn health_check(State(state): State<AppState>) -> Json<HealthResponse> {
+    let total_requests: u64 = state.request_count.load(std::sync::atomic::Ordering::Relaxed);
+
+    let active_connections = state.inference_semaphore.available_permits();
+
+    Json(HealthResponse { status: ("healthy".to_string()), version: ("0.1.0".to_string()), total_requests, active_connections:(100-active_connections) })
+
 }
 
 #[tokio::main]
