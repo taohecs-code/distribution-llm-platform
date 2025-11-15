@@ -52,6 +52,11 @@ async fn health_check(State(state): State<AppState>) -> Json<HealthResponse> {
 
 }
 
+async fn handle_inference(
+    State(state): State<AppState>,
+    Json(payload): Json<InferenceRequest>
+) -> Result<Json<InferenceResponse> ,StatusCode> {}
+
 #[tokio::main]
 async fn main(){
     
