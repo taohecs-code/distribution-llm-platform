@@ -55,7 +55,19 @@ async fn health_check(State(state): State<AppState>) -> Json<HealthResponse> {
 async fn handle_inference(
     State(state): State<AppState>,
     Json(payload): Json<InferenceRequest>
-) -> Result<Json<InferenceResponse> ,StatusCode> {}
+) ->Json<InferenceResponse> {
+    let _permit = state.inference_semaphore.acquire().await.unwrap();
+    let start = std::time::Instant::now();
+    let processed_data = state.spark_client.preprocess_text(&payload.prompt).await;
+    let inference_result = load_balanced_inference(&processed_data).await;
+
+    Json(InferenceResponse {
+        generated_text: inference_result,
+        latency_ms: start.elapsed().as_millis() as u64,
+        tokens_generated: 0,
+        model_version: "llama-7b-optimized".to_string(),
+    })
+}
 
 #[tokio::main]
 async fn main(){
